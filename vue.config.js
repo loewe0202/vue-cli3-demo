@@ -5,14 +5,16 @@ const resolve = dir => path.join(__dirname, dir);
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pxtorem');
-
-let env = process.env.NODE_ENV === 'development' ? true : false;
-let outputDir = '/dist';
+const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 
 module.exports = {
-  publicPath: env ? '/' : outputDir, // 基本路径
-  outputDir: outputDir, // 输出文件目录
+  publicPath: process.env.VUE_APP_PUBLIC_PATH, // 部署应用包时的基本路径
+  outputDir: process.env.outputDir, // 输出文件目录
   lintOnSave: true, // eslint-loader 是否在保存的时候检查
+  runtimeCompiler: true, // 是否使用包含运行时编译器的 Vue 构建版本
+  productionSourceMap: !IS_PROD, // 生产环境是否生成 sourceMap 文件
+  parallel: require('os').cpus().length > 1, // 是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
+  pwa: {}, // PWA 插件相关配置
   // webpack配置
   chainWebpack: config => {
     if (process.env.npm_config_report) {
@@ -73,7 +75,7 @@ module.exports = {
       },
     };
     let plugins = [...config.plugins];
-    if (!env) {
+    if (IS_PROD) {
       // 为生产环境修改配置...
       config.mode = 'production';
       config.output.filename = 'js/[name].[contenthash:10].js';
@@ -123,7 +125,6 @@ module.exports = {
       },
     });
   },
-  productionSourceMap: false, // 生产环境是否生成 sourceMap 文件
   // css相关配置
   css: {
     extract: {
@@ -150,8 +151,6 @@ module.exports = {
     }, // css预设器配置项
     modules: false, // 启用 CSS modules for all css / pre-processor files.
   },
-  parallel: require('os').cpus().length > 1, // 是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
-  pwa: {}, // PWA 插件相关配置 see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
   // webpack-dev-server 相关配置
   devServer: {
     open: true,

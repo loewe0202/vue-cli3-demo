@@ -1,3 +1,4 @@
+/* jshint esversion: 8 */
 import Vue from 'vue';
 import Vuex from 'vuex';
 

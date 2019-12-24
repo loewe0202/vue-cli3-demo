@@ -1,5 +1,7 @@
+/* jshint esversion: 8 */
 const path = require('path');
 const webpack = require('webpack');
+const resolve = dir => path.join(__dirname, dir);
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pxtorem');
@@ -114,9 +116,9 @@ module.exports = {
       ],
       resolve: {
         alias: {
-          '@': path.resolve(__dirname, './src'),
-          '@c': path.resolve(__dirname, './src/components'),
-          '@v': path.resolve(__dirname, './src/views'),
+          '@': resolve('src'),
+          components: resolve('src/components'),
+          views: resolve('src/views'),
         }, // 别名配置
       },
     });
@@ -152,8 +154,7 @@ module.exports = {
   pwa: {}, // PWA 插件相关配置 see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
   // webpack-dev-server 相关配置
   devServer: {
-    // stats: { warningsFilter: (warning) => /Conflicting order between/gm.test(warning) },
-    open: process.platform === 'darwin',
+    open: true,
     disableHostCheck: true,
     host: '0.0.0.0', // 允许外部ip访问
     port: 8022, // 端口

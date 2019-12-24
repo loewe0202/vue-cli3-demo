@@ -34,5 +34,21 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "vue-template-compiler": "^2.6.10",
     "webpack-bundle-analyzer": "^3.6.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,vue}": [
+      "eslint",
+      "git add"
+    ],
+    "*.{vue,scss}": [
+      "stylelint",
+      "git add"
+    ]
   }
 }

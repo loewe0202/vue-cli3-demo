@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+/* jshint esversion: 8 */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 

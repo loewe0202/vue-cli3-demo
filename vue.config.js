@@ -119,8 +119,16 @@ module.exports = {
       resolve: {
         alias: {
           '@': resolve('src'),
-          components: resolve('src/components'),
-          views: resolve('src/views'),
+          '@assets': resolve('src/assets'),
+          '@scss': resolve('src/assets/scss'),
+          '@components': resolve('src/components'),
+          '@plugins': resolve('src/plugins'),
+          '@utils': resolve('src/utils'),
+          '@views': resolve('src/views'),
+          '@router': resolve('src/router'),
+          '@store': resolve('src/store'),
+          '@layouts': resolve('src/layouts'),
+          '@static': resolve('src/static'),
         }, // 别名配置
       },
     });
@@ -156,7 +164,7 @@ module.exports = {
     open: true,
     disableHostCheck: true,
     host: '0.0.0.0', // 允许外部ip访问
-    port: 8022, // 端口
+    port: 8090, // 端口
     https: false, // 启用https
     overlay: {
       warnings: true,

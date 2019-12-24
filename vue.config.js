@@ -154,7 +154,7 @@ module.exports = {
         ],
       }, // 这里的选项会传递给 postcss-loader
       // sass: {
-      //   data: `@import "~@/style/theme.scss";`,
+      //   data: `@import "~@scss/fn.scss";`,
       // },
     }, // css预设器配置项
     modules: false, // 启用 CSS modules for all css / pre-processor files.
